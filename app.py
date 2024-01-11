@@ -23,7 +23,7 @@ class Course(Base):
     __tablename__ = 'courses'
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    code = Column(Integer)
+    code = Column(String)
     day = Column(String)
 
     def schedules(self):
