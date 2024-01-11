@@ -54,23 +54,31 @@ def create_student():
 def create_course():
     session = Session()
     name = input("Enter course name: ")
-    price = int(input("Enter course price level (1-5): "))
-    course = Course(name=name, price=price)
+    code = int(input("Enter course code: "))
+    day = input("Enter day to take the course: ")
+    course = Course(name=name, code=code, day=day)
     session.add(course)
     session.commit()
     session.close()
-    print(f"Added course {name}")
+    print(f"Added course {name} {code} to be taken on {day}.")
 
 def create_schedule():
     session = Session()
     student_id = int(input("Enter student ID: "))
-    course_id = int(input("Enter course ID: "))  # Corrected variable name
-    schedule_time = int(input("Enter schedule (1-5): "))  # Renamed to avoid confusion with the model
-    schedule = Schedule(student_id=student_id, course_id=course_id, schedule=schedule_time)
+    course_id = int(input("Enter course ID: "))
+
+    time = input("Enter time for the course (e.g., 10:00 AM): ")
+    duration = int(input("Enter duration in hours: "))
+
+    schedule = Schedule(student_id=student_id, course_id=course_id, time=time, duration=duration)
     session.add(schedule)
     session.commit()
     session.close()
-    print("Added schedule")
+    print(f"Added schedule for Student ID {student_id} for Course ID {course_id} at {time} for {duration} hours")
+
+    # Reminder Feature (simple version)
+    print(f"Reminder: You have a course on {time} for {duration} hours.")
+
 
 if __name__ == "__main__":
     while True:
