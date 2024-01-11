@@ -1,6 +1,5 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-import argparse
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
+from sqlalchemy.orm import sessionmaker, relationship
 from models.student import Student
 from models.courses import Course
 from models.schedule import Schedule
@@ -11,22 +10,31 @@ engine = create_engine('sqlite:///studysync.db')
 
 Session = sessionmaker(bind=engine)
 session = Session()
-# Add more CLI functionality as needed...
-# In app.py
 
-def list_courses():
-    courses = session.query(Course).all()
-    for course in courses:
-        print(f"{course.id}: {course.name}")
+class Student(Base): # Model Definitions
+    __tablename__ = 'students'
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String)
+    last_name = Column(String)
 
-# Add argparse setup to call this function
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="StudySync CLI")
-    parser.add_argument("--list_courses", help="List all courses", action="store_true")
+    def schedule(self):
+        return session.query(Schedule).filter(Schedule.student_id == self.id).all()
+class Course(Base):
+    __tablename__ = 'courses'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    time = Column(Integer)
 
-    args = parser.parse_args()
+    def schedules(self):
+        return session.query(Schedule).filter(Schedule.course_id == self.id).all()
 
-    if args.list_courses:
-        list_courses()
+class Schedule(Base):
+    __tablename__ = 'schedule'
+    id = Column(Integer, primary_key=True)
+    course_id = Column(Integer, ForeignKey('courses.id'))
+    student_id = Column(Integer, ForeignKey('students.id'))
+    schedule = Column(Integer)
+    student = relationship("Student")
+    course = relationship("Course")
 
-Base.metadata.create_all(engine)
+Base.metadata.create_all(engine) # Create tables
