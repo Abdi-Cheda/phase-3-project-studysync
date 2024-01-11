@@ -66,7 +66,6 @@ def create_schedule():
     session = Session()
     student_id = int(input("Enter student ID: "))
     course_id = int(input("Enter course ID: "))
-
     time = input("Enter time for the course (e.g., 10:00 AM): ")
     duration = int(input("Enter duration in hours: "))
 
