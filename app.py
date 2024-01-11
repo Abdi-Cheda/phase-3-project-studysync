@@ -17,6 +17,8 @@ class Student(Base): # Model Definitions
     first_name = Column(String)
     last_name = Column(String)
 
+    __table_args__ = {'extend_existing': True}
+
     def schedule(self):
         return session.query(Schedule).filter(Schedule.student_id == self.id).all()
 class Course(Base):
