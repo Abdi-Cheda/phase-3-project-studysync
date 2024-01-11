@@ -9,3 +9,5 @@ class Student(Base):
     name = Column(String)
     # Relationships
     schedule = relationship("Schedule", back_populates="student")
+
+
