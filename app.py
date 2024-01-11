@@ -12,3 +12,11 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # Add more CLI functionality as needed...
+# In app.py
+
+def list_courses():
+    courses = session.query(Course).all()
+    for course in courses:
+        print(f"{course.id}: {course.name}")
+
+# Add argparse setup to call this function
