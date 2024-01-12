@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from contextlib import contextmanager
 from models.base import Base
 from models.student import Student
-from models.courses import Course  # Ensure this is the correct module name
+from models.courses import Course
 from models.schedule import Schedule
 
 engine = create_engine('sqlite:///studysync.db')
@@ -39,35 +39,28 @@ def create_course(session):
 
 def create_schedule():
     with session_scope() as session:
-        # List all students
         students = session.query(Student).all()
         for i, student in enumerate(students, 1):
             print(f"{i}. {student.first_name} {student.last_name}")
 
-        # User selects a student
         student_choice = int(input("Choose a student by number: "))
         selected_student = students[student_choice - 1]
 
-        # List all courses
         courses = session.query(Course).all()
         for i, course in enumerate(courses, 1):
             print(f"{i}. {course.name} (Code: {course.code})")
 
-        # User selects a course
         course_choice = int(input("Choose a course by number: "))
         selected_course = courses[course_choice - 1]
 
-        # Schedule details
         time = input("Enter time for the course (e.g., 10:00 AM): ")
         duration = int(input("Enter duration in hours: "))
 
-        # Create and add schedule
         schedule = Schedule(student_id=selected_student.id, course_id=selected_course.id, time=time, duration=duration)
         session.add(schedule)
 
         print(f"Added schedule for Student {selected_student.first_name} {selected_student.last_name} for Course {selected_course.name} at {time} for {duration} hours")
         print(f"Reminder: Dear {selected_student.first_name} {selected_student.last_name}, you have course {selected_course.name} {selected_course.code} to be taken on {selected_course.day} at {time} for a duration of {duration} hours.")
-
 
 def main():
     Base.metadata.create_all(engine)
