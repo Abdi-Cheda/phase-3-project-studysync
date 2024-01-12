@@ -39,24 +39,34 @@ def create_course(session):
 
 def create_schedule():
     with session_scope() as session:
-        student_id = int(input("Enter student ID: "))
-        course_id = int(input("Enter course ID: "))
+        # List all students
+        students = session.query(Student).all()
+        for i, student in enumerate(students, 1):
+            print(f"{i}. {student.first_name} {student.last_name}")
+
+        # User selects a student
+        student_choice = int(input("Choose a student by number: "))
+        selected_student = students[student_choice - 1]
+
+        # List all courses
+        courses = session.query(Course).all()
+        for i, course in enumerate(courses, 1):
+            print(f"{i}. {course.name} (Code: {course.code})")
+
+        # User selects a course
+        course_choice = int(input("Choose a course by number: "))
+        selected_course = courses[course_choice - 1]
+
+        # Schedule details
         time = input("Enter time for the course (e.g., 10:00 AM): ")
         duration = int(input("Enter duration in hours: "))
 
-        # Fetch the student and course from the database
-        student = session.query(Student).filter(Student.id == student_id).first()
-        course = session.query(Course).filter(Course.id == course_id).first()
-
-        if not student or not course:
-            print("Invalid student ID or course ID.")
-            return
-
-        schedule = Schedule(student_id=student_id, course_id=course_id, time=time, duration=duration)
+        # Create and add schedule
+        schedule = Schedule(student_id=selected_student.id, course_id=selected_course.id, time=time, duration=duration)
         session.add(schedule)
 
-        print(f"Added schedule for Student ID {student_id} for Course ID {course_id} at {time} for {duration} hours")
-        print(f"Reminder: Dear {student.first_name} {student.last_name}, you have course {course.name} {course.code} to be taken on {course.day} at {time} for a duration of {duration} hours.")
+        print(f"Added schedule for Student {selected_student.first_name} {selected_student.last_name} for Course {selected_course.name} at {time} for {duration} hours")
+        print(f"Reminder: Dear {selected_student.first_name} {selected_student.last_name}, you have course {selected_course.name} {selected_course.code} to be taken on {selected_course.day} at {time} for a duration of {duration} hours.")
 
 
 def main():
