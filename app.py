@@ -6,8 +6,6 @@ from models.student import Student
 from models.courses import Course
 from models.schedule import Schedule
 
-# ... previous imports ...
-
 engine = create_engine('sqlite:///studysync.db')
 Session = sessionmaker(bind=engine)
 
@@ -52,4 +50,3 @@ def create_schedule():
         schedule = Schedule(student_id=student_id, course_id=course_id, time=time, duration=duration)
         session.add(schedule)
 
-        
