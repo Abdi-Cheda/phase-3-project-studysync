@@ -1,6 +1,10 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
-from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from contextlib import contextmanager
 from models.base import Base
+from models.student import Student
+from models.courses import Course
+from models.schedule import Schedule
 
 engine = create_engine('sqlite:///studysync.db')
 Session = sessionmaker(bind=engine)
