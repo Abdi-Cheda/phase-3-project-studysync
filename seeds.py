@@ -1,15 +1,47 @@
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
-from app import Student
-from app import Course
-from app import Schedule
 
 engine = create_engine('sqlite:///studysync.db')
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
+class Student(Base):
+    __tablename__ = 'students'
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String)
+    last_name = Column(String)
 
+    def schedule(self):
+        session = Session()
+        schedules = session.query(Schedule).filter(Schedule.student_id == self.id).all()
+        session.close()
+        return schedules
+
+class Course(Base):
+    __tablename__ = 'courses'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    code = Column(Integer)
+    day = Column(String)
+
+    def schedules(self):
+        session = Session()
+        schedules = session.query(Schedule).filter(Schedule.course_id == self.id).all()
+        session.close()
+        return schedules
+
+class Schedule(Base):
+    __tablename__ = 'schedule'
+    id = Column(Integer, primary_key=True)
+    course_id = Column(Integer, ForeignKey('courses.id'))
+    student_id = Column(Integer, ForeignKey('students.id'))
+    time = Column(String)
+    duration = Column(Integer)
+    student = relationship("Student")
+    course = relationship("Course")
+
+Base.metadata.create_all(engine)
 
 def create_student():
     session = Session()
