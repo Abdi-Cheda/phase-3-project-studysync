@@ -10,7 +10,7 @@ engine = create_engine('sqlite:///studysync.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 
-class Student(Base): # Model Definitions
+class Student(Base):
     __tablename__ = 'students'
     id = Column(Integer, primary_key=True)
     first_name = Column(String)
@@ -40,4 +40,4 @@ class Schedule(Base):
     student = relationship("Student")
     course = relationship("Course")
 
-Base.metadata.create_all(engine) # Create tables
+Base.metadata.create_all(engine)
