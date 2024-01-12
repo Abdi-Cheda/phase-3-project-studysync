@@ -22,7 +22,8 @@ class Course(Base):
     __tablename__ = 'courses'
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    price = Column(Integer)  # Changed from time to price
+    course = Column(Integer)  # Changed from time to price
+    day = Column(String)
 
     def schedules(self):
         session = Session()
@@ -35,7 +36,8 @@ class Schedule(Base):
     id = Column(Integer, primary_key=True)
     course_id = Column(Integer, ForeignKey('courses.id'))
     student_id = Column(Integer, ForeignKey('students.id'))
-    schedule = Column(Integer)
+    time = Column(String)
+    duration = Column(Integer)
     student = relationship("Student")
     course = relationship("Course")
 

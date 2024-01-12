@@ -5,7 +5,6 @@ from models.courses import Course
 from models.schedule import Schedule
 from models.base import Base
 
-
 engine = create_engine('sqlite:///studysync.db')
 
 Session = sessionmaker(bind=engine)
