@@ -39,6 +39,17 @@ def create_course():
         session.add(course)
         print(f"Added course {name} {code} to be taken on {day}.")
 
+# def create_schedule():
+#     with session_scope() as session:
+#         student_id = int(input("Enter student ID: "))
+#         course_id = int(input("Enter course ID: "))
+#         time = input("Enter time for the course (e.g., 10:00 AM): ")
+#         duration = int(input("Enter duration in hours: "))
+
+#         schedule = Schedule(student_id=student_id, course_id=course_id, time=time, duration=duration)
+#         session.add(schedule)
+#         print(f"Added schedule for Student ID {student_id} for Course ID {course_id} at {time} for {duration} hours")
+#         print(f"Reminder: You have a schedule at {time} for a duration of {duration} hours.")
 def create_schedule():
     with session_scope() as session:
         student_id = int(input("Enter student ID: "))
@@ -46,10 +57,20 @@ def create_schedule():
         time = input("Enter time for the course (e.g., 10:00 AM): ")
         duration = int(input("Enter duration in hours: "))
 
+        # Fetch the student and course from the database
+        student = session.query(Student).filter(Student.id == student_id).first()
+        course = session.query(Course).filter(Course.id == course_id).first()
+
+        if not student or not course:
+            print("Invalid student ID or course ID.")
+            return
+
         schedule = Schedule(student_id=student_id, course_id=course_id, time=time, duration=duration)
         session.add(schedule)
+
         print(f"Added schedule for Student ID {student_id} for Course ID {course_id} at {time} for {duration} hours")
-        print(f"Reminder: You have a schedule at {time} for a duration of {duration} hours.")
+        print(f"Reminder: Dear {student.first_name} {student.last_name}, you have course {course.name} {course.code} to be taken on {course.day} at {time} for a duration of {duration} hours.")
+
 
 def main():
     Base.metadata.create_all(engine)
