@@ -36,18 +36,7 @@ def create_course(session):
     session.add(course)
     session.commit()
     print(f"Added course with ID {course.id}: {name}")
-
-# def create_schedule():
-#     with session_scope() as session:
-#         student_id = int(input("Enter student ID: "))
-#         course_id = int(input("Enter course ID: "))
-#         time = input("Enter time for the course (e.g., 10:00 AM): ")
-#         duration = int(input("Enter duration in hours: "))
-
-#         schedule = Schedule(student_id=student_id, course_id=course_id, time=time, duration=duration)
-#         session.add(schedule)
-#         print(f"Added schedule for Student ID {student_id} for Course ID {course_id} at {time} for {duration} hours")
-#         print(f"Reminder: You have a schedule at {time} for a duration of {duration} hours.")
+    
 def create_schedule():
     with session_scope() as session:
         student_id = int(input("Enter student ID: "))
