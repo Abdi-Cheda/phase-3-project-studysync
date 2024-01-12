@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 from app import Student
 from app import Course
+from app import Schedule
 
 engine = create_engine('sqlite:///studysync.db')
 Session = sessionmaker(bind=engine)
