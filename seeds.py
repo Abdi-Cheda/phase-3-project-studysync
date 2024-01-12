@@ -71,22 +71,14 @@ def create_schedule():
     time = input("Enter time for the course (e.g., 10:00 AM): ")
     duration = int(input("Enter duration in hours: "))
 
-    # Retrieve the day of the course
-    course = session.query(Course).filter(Course.id == course_id).first()
-    if course is None:
-        print(f"Course with ID {course_id} not found.")
-        return
-    day_of_course = course.day
-
     schedule = Schedule(student_id=student_id, course_id=course_id, time=time, duration=duration)
     session.add(schedule)
     session.commit()
     session.close()
     print(f"Added schedule for Student ID {student_id} for Course ID {course_id} at {time} for {duration} hours")
 
-    # Reminder Feature with the correct day
-    print(f"Reminder: You have a course on {day_of_course} at {time} for a duration of {duration} hours.")
-
+    # Reminder Feature (simple version)
+    print(f"Reminder: You have a course on {day} at {time} for a duration of {duration} hours.")
 
 
 if __name__ == "__main__":
