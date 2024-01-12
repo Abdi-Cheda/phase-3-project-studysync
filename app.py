@@ -30,14 +30,12 @@ def create_student(session):
     session.commit()
     print(f"Added student with ID {student.id}: {first_name} {last_name}")
 
-def create_course():
-    with session_scope() as session:
-        name = input("Enter course name: ")
-        code = int(input("Enter course code: "))
-        day = input("Enter day to take the course: ")
-        course = Course(name=name, code=code, day=day)
-        session.add(course)
-        print(f"Added course {name} {code} to be taken on {day}.")
+def create_course(session):
+    name = input("Enter course name: ")
+    course = Course(name=name)
+    session.add(course)
+    session.commit()
+    print(f"Added course with ID {course.id}: {name}")
 
 # def create_schedule():
 #     with session_scope() as session:
