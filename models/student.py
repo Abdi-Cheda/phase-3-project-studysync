@@ -6,5 +6,4 @@ class Student(Base):
     __tablename__ = 'students'
 
     id = Column(Integer, primary_key=True)
-    # Relationships
     schedule = relationship("Schedule", back_populates="student")
