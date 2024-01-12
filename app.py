@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from contextlib import contextmanager
 from models.base import Base
 from models.student import Student
-from models.courses import Course
+from models.courses import Course  # Ensure this is the correct module name
 from models.schedule import Schedule
 
 engine = create_engine('sqlite:///studysync.db')
@@ -27,16 +27,16 @@ def create_student(session):
     last_name = input("Enter student's last name: ")
     student = Student(first_name=first_name, last_name=last_name)
     session.add(student)
-    session.commit()
     print(f"Added student with ID {student.id}: {first_name} {last_name}")
 
 def create_course(session):
     name = input("Enter course name: ")
-    course = Course(name=name)
+    code = int(input("Enter course code: "))
+    day = input("Enter day to take the course: ")
+    course = Course(name=name, code=code, day=day)
     session.add(course)
-    session.commit()
     print(f"Added course with ID {course.id}: {name}")
-    
+
 def create_schedule():
     with session_scope() as session:
         student_id = int(input("Enter student ID: "))
@@ -66,9 +66,11 @@ def main():
         print("\n1. Add Student\n2. Add Course\n3. Add Schedule\n4. Exit")
         choice = input("Enter your choice: ")
         if choice == '1':
-            create_student()
+            with session_scope() as session:
+                create_student(session)
         elif choice == '2':
-            create_course()
+            with session_scope() as session:
+                create_course(session)
         elif choice == '3':
             create_schedule()
         elif choice == '4':
