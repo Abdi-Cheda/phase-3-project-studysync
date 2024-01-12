@@ -2,6 +2,7 @@ from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 from app import Student
+from app import Course
 
 engine = create_engine('sqlite:///studysync.db')
 Session = sessionmaker(bind=engine)
