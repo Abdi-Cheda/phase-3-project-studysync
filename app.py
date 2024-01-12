@@ -22,13 +22,13 @@ def session_scope():
     finally:
         session.close()
 
-def create_student():
-    with session_scope() as session:
-        first_name = input("Enter student's first name: ")
-        last_name = input("Enter student's last name: ")
-        student = Student(first_name=first_name, last_name=last_name)
-        session.add(student)
-        print(f"Added student {first_name} {last_name}")
+def create_student(session):
+    first_name = input("Enter student's first name: ")
+    last_name = input("Enter student's last name: ")
+    student = Student(first_name=first_name, last_name=last_name)
+    session.add(student)
+    session.commit()
+    print(f"Added student with ID {student.id}: {first_name} {last_name}")
 
 def create_course():
     with session_scope() as session:
