@@ -48,4 +48,26 @@ def create_schedule():
 
         schedule = Schedule(student_id=student_id, course_id=course_id, time=time, duration=duration)
         session.add(schedule)
+        print(f"Added schedule for Student ID {student_id} for Course ID {course_id} at {time} for {duration} hours")
+        print(f"Reminder: You have a schedule at {time} for a duration of {duration} hours.")
 
+def main():
+    Base.metadata.create_all(engine)
+
+    while True:
+        print("\n1. Add Student\n2. Add Course\n3. Add Schedule\n4. Exit")
+        choice = input("Enter your choice: ")
+        if choice == '1':
+            create_student()
+        elif choice == '2':
+            create_course()
+        elif choice == '3':
+            create_schedule()
+        elif choice == '4':
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
