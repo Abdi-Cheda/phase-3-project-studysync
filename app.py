@@ -1,16 +1,15 @@
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
 from models.base import Base
-from models.base import Student
 
 engine = create_engine('sqlite:///studysync.db')
 Session = sessionmaker(bind=engine)
 
-# class Student(Base):
-#     __tablename__ = 'students'
-#     id = Column(Integer, primary_key=True)
-#     first_name = Column(String)
-#     last_name = Column(String)
+class Student(Base):
+    __tablename__ = 'students'
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String)
+    last_name = Column(String)
 
 def schedule(self):
         session = Session()
