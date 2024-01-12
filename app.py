@@ -78,7 +78,6 @@ def create_schedule():
 
     print(f"Reminder: You have a schedule at {time} for a duration of {duration} hours.")
 
-
 if __name__ == "__main__":
     while True:
         print("1. Add Student\n2. Add Course\n3. Add Schedule\n4. Exit")
