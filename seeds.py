@@ -1,10 +1,9 @@
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
-from sqlalchemy.ext.declarative import declarative_base
+from models.base import Base
 
 engine = create_engine('sqlite:///studysync.db')
 Session = sessionmaker(bind=engine)
-Base = declarative_base()
 
 class Student(Base):
     __tablename__ = 'students'
