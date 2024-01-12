@@ -78,7 +78,7 @@ def create_schedule():
     print(f"Added schedule for Student ID {student_id} for Course ID {course_id} at {time} for {duration} hours")
 
     # Reminder Feature (simple version)
-    print(f"Reminder: You have a course on {day} at {time} for a duration of {duration} hours.")
+    print(f"Reminder: You have a schedule at {time} for a duration of {duration} hours.")
 
 
 if __name__ == "__main__":
