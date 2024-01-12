@@ -6,7 +6,7 @@ engine = create_engine('sqlite:///studysync.db')
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
-class Student(Base):  # Model Definitions
+class Student(Base):
     __tablename__ = 'students'
     id = Column(Integer, primary_key=True)
     first_name = Column(String)
@@ -22,7 +22,7 @@ class Course(Base):
     __tablename__ = 'courses'
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    code = Column(Integer)  # Chang
+    code = Column(Integer)
     day = Column(String)
 
     def schedules(self):
@@ -77,7 +77,6 @@ def create_schedule():
     session.close()
     print(f"Added schedule for Student ID {student_id} for Course ID {course_id} at {time} for {duration} hours")
 
-    # Reminder Feature (simple version)
     print(f"Reminder: You have a schedule at {time} for a duration of {duration} hours.")
 
 
