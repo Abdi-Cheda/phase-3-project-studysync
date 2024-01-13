@@ -1,4 +1,5 @@
 # phase-3-project-studysync
+
 ## Description
 StudySync is a Python-based application designed to manage educational schedules. It allows users to add students, courses, and schedule courses for students. The application uses SQLAlchemy with a SQLite database to store and manage data, providing a simple yet effective way of handling educational administration tasks.
 
@@ -16,11 +17,12 @@ pip install sqlalchemy
 To run StudySync, navigate to the folder containing the app.py file and run the following command in your terminal:
 python app.py
 
-You will be presented with a menu to choose from the following actions:
+### You will be presented with a menu to choose from the following actions:
 Add Student: Add a new student to the database.
 Add Course: Create a new course.
 Add Schedule: Schedule a course for a student.
 Exit: Exit the application.
+
 ### Adding a Student
 Select option 1 from the main menu.
 Enter the student's first and last name as prompted.
